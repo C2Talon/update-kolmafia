@@ -39,10 +39,13 @@ else {
 }
 
 # make symlink
-if ($makesymlink and readlink($sym) ne $file) {
-	print "creating symlink: $sym...\n";
-	unlink($sym);
-	symlink($file,$sym) or die "$!";
+if ($makesymlink) {
+    my $existing_link = readlink($sym);  # readlink may return undef if the link does not exist
+    if (!$existing_link || $existing_link ne $file) {
+        print "creating symlink: $sym...\n";
+        unlink($sym);
+        symlink($file, $sym) or die "$!";
+    }
 }
 
 print "$0 done.\n";
