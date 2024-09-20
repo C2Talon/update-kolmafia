@@ -3,9 +3,7 @@
 # c2t
 
 # downloads latest KoLmafia into the current working directory if it does not already exist and creates a symbolic link "KoLmafia-latest.jar" to it
-
-# note for Win32 systems: while this mostly works with Win32 systems, symlink creation will fail unless you use the Win32 version of the script
-
+# note: if using a win32 system, the symbolic link will not be created unless running this as an administrator
 
 use strict;
 use warnings;
@@ -15,6 +13,25 @@ use Getopt::Long qw(GetOptions);
 # options
 my $makesymlink = 1;
 GetOptions('symlink!' => \$makesymlink) or die "$!";
+
+# Detect the operating system
+my $os = $^O;
+
+# need additional modules to make symlinks in Win32
+if ($makesymlink) {
+  if ($os eq 'MSWin32') {
+    # Attempt to load Win32::Symlink
+    eval {
+        require Win32::Symlink;
+        Win32::Symlink->import();
+    };    
+    # Attempt to load Win32::RunAsAdmin
+    eval {
+        require Win32::RunAsAdmin;
+        Win32::RunAsAdmin->import();
+    };
+}
+}
 
 my ($page,$link,$file,$sym,$res);
 $sym = 'KoLmafia-latest.jar';
