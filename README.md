@@ -4,9 +4,9 @@ Perl script to check the GitHub API for the latest release of [KoLmafia](https:/
 
 ## Usage of the binaries
 
-There's now 2 binaries (executeables) provided in the [releases](https://github.com/C2Talon/update-kolmafia/releases) section that might make this easier to use for most. If you use one of the binaries, you don't have to worry about installing Perl or seperate packages. The two binaries provided are for Windows (update-kolmafia-win64.exe) and Linux (update-kolmafia-amd64). Note that in order to create the symlink in Windows, the program must be run as an administrator since it won't be able trigger the UAC prompt to escalate privileges. However, everything but the symlink creation will work fine in Windows if you can't, or don't want to, give the program administrator privileges.
+There's now 2 binaries (executeables) provided in the [releases](https://github.com/C2Talon/update-kolmafia/releases) section that might make this easier to use. If you use one of the binaries, you don't have to worry about installing Perl or seperate packages. The two binaries provided are for Windows (`update-kolmafia-win64.exe`) and Linux (`update-kolmafia-amd64`).
 
-Place the binary in the base kolmafia directory in the same place as the `KoLmafia-XXXXX.jar` file(s). Once the file is in the directory, the binary can be run like any other program. Under Linux, make sure to `chmod +x` the file first.
+Place the binary in the base kolmafia directory in the same place as the `KoLmafia-XXXXX.jar` file(s). Once the file is in the directory, the binary can be run like any other program. Under Linux, make sure to `chmod +x` the file once first. Under Windows, the only issue that might crop up is if you find the program is not creating the symlink, you may need to run the program as admin for it to be able to create the symlink.
 
 To skip creating the symlink, the `--nosymlink` option can be used as such:
 
