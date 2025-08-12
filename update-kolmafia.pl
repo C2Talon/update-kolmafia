@@ -9,6 +9,7 @@ use strict;
 use warnings;
 use LWP::Simple;
 use Getopt::Long qw(GetOptions);
+use File::Copy;
 
 # options
 my $makesymlink = 1;
@@ -31,7 +32,7 @@ if ($makesymlink and $os eq 'MSWin32') {
 	};
 }
 
-my ($page,$link,$file,$sym,$res);
+my ($page,$link,$file,$sym,$res,$tmp);
 $sym = 'KoLmafia-latest.jar';
 
 # get api data
@@ -46,11 +47,14 @@ if (-e "$file") {
 }
 # download
 else {
-	print "downloading $file...\n";
-	$res = getstore($link,$file);
+	$tmp = "$file.tmp";
+	print "downloading $file as $tmp...\n";
+	$res = getstore($link,$tmp);
 	if (is_error($res)) {
 		die "getstore <$link> failed: $res";
 	}
+	print "moving $tmp to $file...\n";
+	move($tmp,$file) or die "File move failed: $!";
 }
 
 # make symlink
